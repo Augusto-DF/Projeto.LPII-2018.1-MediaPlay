@@ -16,8 +16,12 @@ public class Register {
 	 * @param user
 	 * @return String com os atributos do usuário separados por ;
 	 */
-	public String stringUser(User user) {		
-		return ""; //Apague
+	public String stringUser(User user) {
+		String strUsr = "<"+user.getId()+";"+user.getNome()
+						+";"+user.getSenha()+";"+user.isVip()+";"+">";
+		
+		
+		return strUsr;
 	}
 	
 	/**
@@ -27,7 +31,17 @@ public class Register {
 	 * @return String com os atributos do usuário separados por ;
 	 */
 	public String stringVip(Vip vip) {
-		return ""; //Apague
+		String strUsr = "<"+vip.getId()+";"+vip.getNome()
+				+";"+vip.getSenha()+";"+vip.isVip()+";";
+		ArrayList<String> playlists = vip.getPlaylists();
+		for(int i = 0; i < playlists.size(); ++i)
+		{
+			strUsr += playlists.get(i)+";";
+		}
+		
+		strUsr += ">";
+
+		return strUsr;
 	}	
 	
 	/**
@@ -37,7 +51,9 @@ public class Register {
 	 * @param filename
 	 */
 	public void registerUser(User user, String filename) {		
-	
+		
+		
+		
 	}
 }
 
