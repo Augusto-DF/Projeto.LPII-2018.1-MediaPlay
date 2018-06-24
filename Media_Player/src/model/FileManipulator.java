@@ -18,7 +18,7 @@ public class FileManipulator {
 		
 		file = new File(filename);
 		String line = " ";
-		ArrayList<String> vector = new ArrayList();
+		ArrayList<String> vector = new ArrayList<String>();
 		int index = 0;
 		
 		try{

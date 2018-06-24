@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Vip extends User{
 	
-	ArrayList<PlayList> playLists = new ArrayList();
+	ArrayList<PlayList> playLists = new ArrayList<PlayList>();
 	
 	public Vip(String nome, String senha, boolean vip) {
 		super(nome, senha, vip);
@@ -28,6 +28,7 @@ public class Vip extends User{
 		name = sc.nextLine();
 		
 		playLists.add(new PlayList(name));
+		sc.close();
 	}
 	
 	/**
@@ -71,7 +72,7 @@ public class Vip extends User{
 	 * @return Array de string com cada nome de Play List
 	 */
 	public ArrayList<String> getPlayLists(){
-		ArrayList <String> names = new ArrayList();
+		ArrayList <String> names = new ArrayList<String>();
 		for(int i = 0; i < playLists.size(); i++) {
 			names.add(playLists.get(i).getNome());
 		}
