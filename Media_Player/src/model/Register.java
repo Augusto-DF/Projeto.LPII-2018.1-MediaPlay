@@ -33,6 +33,7 @@ public class Register {
 	public String stringVip(Vip vip) {
 		String strUsr = "<"+vip.getId()+";"+vip.getNome()
 				+";"+vip.getSenha()+";"+vip.isVip()+";";
+
 		ArrayList<String> playlists = vip.getPlayLists();
 		for(int i = 0; i < playlists.size(); ++i)
 		{
