@@ -138,4 +138,60 @@ public class Node {
 			print(root.getrNode());
 		}
 	}
+
+    private Node delete(Node root, int k)
+    {
+        Node p, p2, n;
+        if (root.getValor() == k)
+        {
+            Node lt, rt;
+            lt = root.getlNode();
+            rt = root.getrNode();
+            if (lt == null && rt == null)
+                return null;
+            else if (lt == null)
+            {
+                p = rt;
+                return p;
+            }
+            else if (rt == null)
+            {
+                p = lt;
+                return p;
+            }
+            else
+            {
+                p2 = rt;
+                p = rt;
+                while (p.getlNode() != null)
+                    p = p.getlNode();
+                p.setlNode(lt);
+                return p2;
+            }
+        }
+        if (k < root.getValor())
+        {
+            n = delete(root.getlNode(), k);
+            root.setlNode(n);
+        }
+        else
+        {
+            n = delete(root.getrNode(), k);
+            root.setrNode(n);             
+        }
+        return root;
+    }
+
+	public void remove(Node root, int k)
+	{
+	    if (root == null)
+	        System.out.println("Tree Empty");
+	    else if (searchNode(root, k) == null)
+	        System.out.println("Sorry "+ k +" is not present");
+	    else
+	    {
+	        root = delete(root, k);
+	        System.out.println(k+ " deleted from the tree");
+	    }
+	}
 }
