@@ -18,6 +18,19 @@ public class Music {
     public Music(String nome, String caminho){
     	this.nome = nome;
         this.caminho = caminho;
+        try {
+        	mp3 = new File(caminho);
+        	
+            stream = new FileInputStream(mp3);
+            buffer = new BufferedInputStream(stream);
+            
+            tocador = new Player (buffer);
+        
+        }catch (Exception e) {
+        	System.out.println("Erro");
+        	e.printStackTrace();
+        }
+        
     } 
     
     /**
@@ -56,12 +69,12 @@ public class Music {
 	 */
 	public void tocar(){
         try{
-        	mp3 = new File(caminho);
+        	/*mp3 = new File(caminho);
         	
             stream = new FileInputStream(mp3);
             buffer = new BufferedInputStream(stream);
             
-            tocador = new Player (buffer);
+            tocador = new Player (buffer);*/
             tocador.play();
             
         }
@@ -75,19 +88,19 @@ public class Music {
 	 * Para a execução de um audio.
 	 */
 	public void parar() {
-		try{
+		/*try{
 			
 			mp3 = new File(caminho);
             stream = new FileInputStream(mp3);
             buffer = new BufferedInputStream(stream);
             
-            tocador = new Player (buffer);
-            tocador.close();
+            tocador = new Player (buffer);*/
+        	this.tocador.close();
             
-        }
+        /*}
         catch (Exception e) {
             System.out.println("Erro!");
             e.printStackTrace();
-        }
+        }*/
 	}
 }	

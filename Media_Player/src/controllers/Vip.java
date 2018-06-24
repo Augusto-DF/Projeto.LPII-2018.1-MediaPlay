@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Vip extends User{
 	
@@ -10,12 +12,22 @@ public class Vip extends User{
 		super(nome, senha, vip);
 	}
 	
+	public Vip(User user) {
+		super(user.getNome(), user.getSenha(), true);
+		user.setVip(true);
+	}
+	
 	/**
-	 * Recebe uma PlayList e adiciona ao ArrayList (playLists)
+	 * Cria e armazena uma playlist.
 	 * Obs.: No caso da adição é interessante receber o objeto PlayList em vez de só o nome.
 	 */
-	public void addPlayList() {
+	public void createPlayList() {
+		Scanner sc = new Scanner(System.in);
+		String name;
+		System.out.print("Nome da nova Play List: ");
+		name = sc.nextLine();
 		
+		playLists.add(new PlayList(name));
 	}
 	
 	/**
@@ -23,7 +35,11 @@ public class Vip extends User{
 	 * @param nome
 	 */
 	public void removePlayList(String nome) {
-		
+		for(int i = 0; i < playLists.size(); i++) {
+			if(playLists.get(i).getNome() == nome) {
+				playLists.remove(i);
+			}
+		}		
 	}
 	
 	/**
@@ -32,15 +48,22 @@ public class Vip extends User{
 	 * @param nome
 	 * @return O objeto PlayList
 	 */
-	//public PlayList findPlayList(String nome)/*throw <Alguma coisa>*/ {
-		
-	//}
+	public PlayList findPlayList(String nome)throws IOException {
+		for(int i = 0; i < playLists.size(); i++) {
+			if(playLists.get(i).getNome() == nome) {
+				return playLists.get(i);
+			}
+		}
+		System.out.println("Play List inexistente");
+		return null;
+	}
 	
 	/**
 	 * Limpa o vetor de PlayList.
 	 */
 	public void clear() {
-		
+		playLists.clear();
+		System.out.println("Play List vazia");
 	}
 	
 	/**
