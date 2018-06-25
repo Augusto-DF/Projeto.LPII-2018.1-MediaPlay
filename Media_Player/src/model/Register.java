@@ -5,6 +5,7 @@ import java.io.*;
 
 import controllers.User;
 import controllers.Vip;
+import controllers.Music;
 
 public class Register {
 	FileManipulator file;
@@ -18,8 +19,8 @@ public class Register {
 	 * @return String com os atributos do usuário separados por ;
 	 */
 	public String stringUser(User user) {
-		String strUsr = "<"+user.getId()+";"+user.getNome()
-						+";"+user.getSenha()+";"+user.isVip()+";"+">";
+		String strUsr = user.getId()+";"+user.getNome()
+						+";"+user.getSenha()+";"+user.isVip()+";";
 		
 		
 		return strUsr;
@@ -32,18 +33,22 @@ public class Register {
 	 * @return String com os atributos do usuário separados por ;
 	 */
 	public String stringVip(Vip vip) {
-		String strUsr = "<"+vip.getId()+";"+vip.getNome()
+		String strUsr = vip.getId()+";"+vip.getNome()
 				+";"+vip.getSenha()+";"+vip.isVip()+";";
 		ArrayList<String> playlists = vip.getPlayLists();
 		for(int i = 0; i < playlists.size(); ++i)
 		{
 			strUsr += playlists.get(i)+";";
 		}
-		
-		strUsr += ">";
 
 		return strUsr;
-	}	
+	}
+	
+	public String stringMusic(Music music)
+	{
+		String strMus = music.getNome()+";"+music.getCaminho()+";";
+		return strMus;
+	}
 	
 	/**
 	 * Busca no arquivo usuario.txt um usuário passado por parametro 
@@ -56,11 +61,10 @@ public class Register {
             File f = new File("src/usuario.txt");
             BufferedReader b = new BufferedReader(new FileReader(f));
             String readLine = "";
+            List<String> userInfo = new ArrayList<String> ();
             while ((readLine = b.readLine()) != null) 
             {
-            	b.skip('<'); b.skip('>');
             	String str = readLine;
-            	List<String> userInfo = new ArrayList<String> ();
             	userInfo = Arrays.asList(str.split(";"));
             	if(userInfo.get(2) == user.getNome())
             	{
@@ -85,6 +89,7 @@ public class Register {
 	/**
 	 * Busca no arquivo usuario.txt um usuário vip passado por parametro 
 	 * e caso não exista no arquivo ele adiciona o novo usuário.
+	 * Overload do metodo registerUser para aceitar usuarios Vip.
 	 * @param user
 	 */
 	public void registerUser(Vip user) throws IOException {		
@@ -95,7 +100,6 @@ public class Register {
 	        String readLine = "";
 	        while ((readLine = b.readLine()) != null) 
 	        {
-	        	b.skip('<'); b.skip('>');
 	        	String str = readLine;
 	        	List<String> userInfo = new ArrayList<String> ();
 	        	userInfo = Arrays.asList(str.split(";"));
@@ -117,13 +121,41 @@ public class Register {
 		catch (IOException e) {
 			e.printStackTrace();
 	    }
-		} 
-		
-		
-		
+	} 
+	public void registerMusic(Music music) throws IOException {		
+	try 
+	{
+        File f = new File("src/musicas.txt");
+        BufferedReader b = new BufferedReader(new FileReader(f));
+        String readLine = "";
+        while ((readLine = b.readLine()) != null) 
+        {
+        	String str = readLine;
+        	List<String> userInfo = new ArrayList<String> ();
+        	userInfo = Arrays.asList(str.split(";"));
+        	if(userInfo.get(1) == music.getNome())
+        	{
+        		b.close();
+        		return;
+        	}             
+        }
+        b.close();
+        
+        String newMusic = stringMusic(music);
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/musicas.txt", true));
+        writer.append("/n");
+        writer.append(newMusic);
+        writer.close();
+      
 	}
+	catch (IOException e) {
+		e.printStackTrace();
+    }
+	} 
 	
-
+	
+	
+}
 /*
  * Add o usuário ná arvore
  * public void registerUser(User user, Node tree) {		
