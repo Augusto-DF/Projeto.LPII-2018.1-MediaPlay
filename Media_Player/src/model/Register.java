@@ -18,7 +18,7 @@ public class Register {
 	 * @param user
 	 * @return String com os atributos do usuário separados por ;
 	 */
-	public String stringUser(User user) {
+	private String stringUser(User user) {
 		String strUsr = user.getId()+";"+user.getNome()
 						+";"+user.getSenha()+";"+user.isVip()+";";
 		
@@ -32,7 +32,7 @@ public class Register {
 	 * @param vip
 	 * @return String com os atributos do usuário separados por ;
 	 */
-	public String stringVip(Vip vip) {
+	private String stringVip(Vip vip) {
 		String strUsr = vip.getId()+";"+vip.getNome()
 				+";"+vip.getSenha()+";"+vip.isVip()+";";
 		ArrayList<String> playlists = vip.getPlayLists();
@@ -44,7 +44,7 @@ public class Register {
 		return strUsr;
 	}
 	
-	public String stringMusic(Music music)
+	private String stringMusic(Music music)
 	{
 		String strMus = music.getNome()+";"+music.getCaminho()+";";
 		return strMus;
