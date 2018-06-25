@@ -1,6 +1,6 @@
 package model;
 
-import java.io.IOException;
+//import java.io.IOException;
 import controllers.User;
 
 public class Node {

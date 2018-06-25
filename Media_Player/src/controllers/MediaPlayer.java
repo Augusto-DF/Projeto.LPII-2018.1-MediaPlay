@@ -1,9 +1,14 @@
 package controllers;
 
 import java.io.*;
+import java.util.Scanner;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.Player;
 
-public class PausablePlayer {
+
+public class MediaPlayer {
 
     private final static int NOTSTARTED = 0;
     private final static int PLAYING = 1;
@@ -19,11 +24,11 @@ public class PausablePlayer {
     // status variable what player thread is doing/supposed to do
     private int playerStatus = NOTSTARTED;
 
-    public PausablePlayer(final InputStream inputStream) throws JavaLayerException {
+    public MediaPlayer(final InputStream inputStream) throws JavaLayerException {
         this.player = new Player(inputStream);
     }
 
-    public PausablePlayer(final InputStream inputStream, final AudioDevice audioDevice) throws JavaLayerException {
+    public MediaPlayer(final InputStream inputStream, final AudioDevice audioDevice) throws JavaLayerException {
         this.player = new Player(inputStream, audioDevice);
     }
 
@@ -128,10 +133,10 @@ public class PausablePlayer {
     }
 
     // demo how to use
-    public static void main(String[] argv) {
+    public static void main(String[] args) {
         try {
-            FileInputStream input = new FileInputStream("myfile.mp3"); 
-            PausablePlayer player = new PausablePlayer(input);
+            FileInputStream input = new FileInputStream("/home/mattheus30/eclipse-workspace/Media_Player/Musicas/2.mp3"); 
+            MediaPlayer player = new MediaPlayer(input);
 
             // start playing
             player.play();
@@ -143,6 +148,14 @@ public class PausablePlayer {
             // after 5 secs, resume
             Thread.sleep(5000);
             player.resume();
+            
+            Scanner sc = new Scanner(System.in);
+            
+            int choice = sc.nextInt();
+            
+            if(choice == 0) {
+            	player.close();
+            }
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }

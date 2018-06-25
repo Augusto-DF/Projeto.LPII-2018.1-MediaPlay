@@ -1,7 +1,11 @@
 package controllers;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import javazoom.jl.decoder.JavaLayerException;
 
 public class PlayList {
 	private String nome;
@@ -63,16 +67,32 @@ public class PlayList {
 	
 	/**
 	 * Executa a playlist
+	 * @throws JavaLayerException 
 	 */
-	public void play() {
-		if(pl != null) {
-			for(Music music : pl) {
-				System.out.println(music.getNome());
-				music.tocar();
+	public void play() throws JavaLayerException {
+		try
+		{
+			for (int i = 0; i < pl.size(); i++) {
+				FileInputStream input = new FileInputStream(pl.get(i).getCaminho()); 
+	            MediaPlayer player = new MediaPlayer(input);
+
+	            // start playing
+	            player.play();
+	            
+	            Scanner sc = new Scanner(System.in);
+	            
+	            int choice = sc.nextInt();
+	            
+	            if(choice == 0) {
+	            	sc.close();
+	            	player.close();
+	            }
 			}
-		}else {
-			System.out.println("Play list vazia");
-		}		
+		}       
+		catch (final Exception e) 
+		{
+            throw new RuntimeException(e);
+        }
 	}
 	
 	/**

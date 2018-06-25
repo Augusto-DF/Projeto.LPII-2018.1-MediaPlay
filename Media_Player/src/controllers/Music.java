@@ -10,27 +10,10 @@ public class Music {
 	private String nome;
 	private String caminho;
 	
-	private File mp3;	
-	private FileInputStream stream;
-	private BufferedInputStream buffer;
-	private Player tocador;
  
     public Music(String nome, String caminho){
     	this.nome = nome;
-        this.caminho = caminho;
-        try {
-        	mp3 = new File(caminho);
-        	
-            stream = new FileInputStream(mp3);
-            buffer = new BufferedInputStream(stream);
-            
-            tocador = new Player (buffer);
-        
-        }catch (Exception e) {
-        	System.out.println("Erro");
-        	e.printStackTrace();
-        }
-        
+        this.caminho = caminho;     
     } 
     
     /**
@@ -62,45 +45,5 @@ public class Music {
 	 */
 	public void setCaminho(String caminho) {
 		this.caminho = caminho;
-	}
-
-	/**
-	 * Executa um arquivo de audio.
-	 */
-	public void tocar(){
-        try{
-        	/*mp3 = new File(caminho);
-        	
-            stream = new FileInputStream(mp3);
-            buffer = new BufferedInputStream(stream);
-            
-            tocador = new Player (buffer);*/
-            tocador.play();
-            
-        }
-        catch (Exception e) {
-            System.out.println("Erro!");
-            e.printStackTrace();
-        }
-    }
-	
-	/**
-	 * Para a execução de um audio.
-	 */
-	public void parar() {
-		/*try{
-			
-			mp3 = new File(caminho);
-            stream = new FileInputStream(mp3);
-            buffer = new BufferedInputStream(stream);
-            
-            tocador = new Player (buffer);*/
-        	this.tocador.close();
-            
-        /*}
-        catch (Exception e) {
-            System.out.println("Erro!");
-            e.printStackTrace();
-        }*/
 	}
 }	
